@@ -1,0 +1,11 @@
+# Unit test for {{ model_name }} (requires dbt >= 1.8)
+unit_tests:
+  - name: test_{{ test_name }}
+    model: {{ model_name }}
+    given:
+      - input: ref('{{ input_model }}')
+        rows:
+          - { {{ sample_row }} }
+    expect:
+      rows:
+        - { {{ expected_row }} }

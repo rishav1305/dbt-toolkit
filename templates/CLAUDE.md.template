@@ -1,0 +1,20 @@
+# CLAUDE.md — {{ project_name }} (dbt-toolkit managed)
+
+## dbt Project
+
+- **Project:** {{ project_name }}
+- **Profile:** {{ profile_name }} → {{ target }}
+- **Execution:** {{ execution_method }}
+- **Toolkit:** dbt-toolkit v0.1.0
+
+## Available Commands
+
+| Command | Description |
+|---|---|
+| `/dbt-toolkit:dbt` | Show status + interactive menu |
+| `/dbt-toolkit:dbt run` | Execute models with smart selection |
+| `/dbt-toolkit:dbt test` | Run tests, analyze failures, coverage report |
+| `/dbt-toolkit:dbt freshness` | Check source data freshness |
+| `/dbt-toolkit:dbt audit` | Proactive health checks |
+| `/dbt-toolkit:dbt debug` | Guided troubleshooting |
+| `/dbt-toolkit:dbt docs` | Generate and serve documentation |
