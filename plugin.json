@@ -1,0 +1,13 @@
+{
+  "name": "dbt-toolkit",
+  "description": "Workflow-oriented dbt project management for Claude Code",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rishav Chatterjee",
+    "email": "rishav.chatterjee@weather.com"
+  },
+  "homepage": "https://github.com/rishavchatterjee/dbt-toolkit",
+  "repository": "https://github.com/rishavchatterjee/dbt-toolkit",
+  "license": "BUSL-1.1",
+  "keywords": ["dbt", "data-build-tool", "redshift", "data-engineering", "testing", "lineage"]
+}

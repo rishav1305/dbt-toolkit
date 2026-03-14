@@ -1,0 +1,86 @@
+Business Source License 1.1
+
+Parameters
+
+Licensor:             Rishav Chatterjee
+Licensed Work:        dbt-toolkit 0.1.0
+Change Date:          2030-03-15
+Change License:       Apache License 2.0
+
+For information about alternative licensing arrangements for the Licensed Work,
+please contact the Licensor.
+
+Notice
+
+The Business Source License (this document, or the "License") is not an Open
+Source license. However, the Licensed Work will eventually be made available
+under an Open Source License, as stated in this License.
+
+License text copyright (c) 2017 MariaDB Corporation Ab, all rights reserved.
+"Business Source License" is a trademark of MariaDB Corporation Ab.
+
+---
+
+Terms
+
+The Licensor hereby grants you the right to use the Licensed Work, in source
+and binary forms, with or without modification, for any purpose, for a period
+of time that will end on the Change Date.
+
+After the Change Date, or if an exception or waiver from the Licensor is
+obtained, the Licensor hereby grants you the right to use the Licensed Work
+under the terms of the Change License.
+
+If you use the Licensed Work after the Change Date without a governing
+exception or license, your use violates copyright law and you may be liable
+for damages.
+
+1. Grant
+
+The Licensor grants you a non-exclusive, royalty-free, worldwide,
+non-transferable license to use the Licensed Work for as long as permitted
+by law.
+
+2. Conditions
+
+2.1 If you distribute copies of the Licensed Work or a Derivative Work, you
+must cause those files that you modified to carry prominent notices stating
+that you changed the files.
+
+2.2 If the Licensed Work includes a "NOTICE" text file, then any Derivative
+Work that you distribute must include a readable copy of the attribution
+notices contained within such NOTICE file.
+
+2.3 If the Licensed Work is in source form and reasonably feasible to
+transmit, the source code for any Derivative Work that you distribute must
+be made available under the terms of the License.
+
+3. Limitations
+
+3.1 If you distribute copies of the Licensed Work or a Derivative Work, you
+must retain all copyright, patent, trademark, and attribution notices from
+the Licensed Work.
+
+3.2 You may not use the name, logo, or trademarks of Licensor or any
+contributor to endorse or promote Derivative Works of the Licensed Work
+without prior written consent (except as necessary to comply with the
+notice requirement in Section 2.2).
+
+3.3 You may not offer or imply any warranty or guarantee of fitness for any
+purpose regarding the Licensed Work. The Licensed Work is provided "as-is"
+and the Licensor disclaims all representations and warranties, express or
+implied.
+
+4. Termination
+
+4.1 If you violate any provision of this License, your rights will terminate
+automatically.
+
+4.2 If you receive a Derivative Work from a contributor, the license will
+automatically terminate for that Derivative Work unless the Licensor consents
+otherwise.
+
+5. No Other Rights
+
+This License does not grant you any right in any trademark or logo of
+Licensor or any contributor (except as expressly stated in Section 2.2).
