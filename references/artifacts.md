@@ -558,3 +558,46 @@ for rtype, total_time in sorted(times_by_type.items()):
 | `run_results.json` | run, test, build, seed, snapshot, retry | Execution results | Status, timing, compiled SQL, errors |
 | `catalog.json` | docs generate | Data catalog | Column types, row counts, stats |
 | `sources.json` | source freshness | Freshness check results | Status, age, max_loaded_at |
+
+---
+
+## State Comparison (CI/CD Slim Runs)
+
+Use `scripts/state.py` to compare two manifest files and find what changed.
+
+### `diff_manifests(old_path, new_path)`
+
+Returns:
+- `added` — new models/sources not in the baseline
+- `removed` — models/sources that were deleted
+- `modified` — models whose checksum changed (SQL was edited)
+
+### `find_modified_models(old_path, new_path)`
+
+Returns combined list of `added` + `modified` — equivalent to dbt's `state:modified` + `state:new` selectors.
+
+### CI/CD Usage
+
+```bash
+# Save baseline manifest after production deploy
+cp target/manifest.json prod_manifest.json
+
+# After code changes, compare
+python -c "
+from scripts.state import find_modified_models
+modified = find_modified_models('prod_manifest.json', 'target/manifest.json')
+print(' '.join(modified))
+"
+
+# Run only modified models + downstream
+dbt run --select <modified_models>+
+```
+
+### Comparison with dbt's `--state` flag
+
+dbt Cloud and dbt Core 1.5+ support `--state` natively:
+```bash
+dbt run --select state:modified+ --state prod_artifacts/
+```
+
+`scripts/state.py` provides the same functionality for environments where `--state` is not available or when you need programmatic access to the diff.

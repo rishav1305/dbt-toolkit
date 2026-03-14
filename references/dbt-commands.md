@@ -250,18 +250,27 @@ Test dbt configuration and database connection without executing models.
 
 ### dbt deps
 
-Install packages defined in `packages.yml`.
+Install packages defined in `packages.yml` or `dependencies.yml`.
 
 **Key Flags:**
-- None (reads `packages.yml` in project root)
+- `--no-lock` — Skip lock file generation (dbt 1.8+, speeds up installs in CI)
+
+**Configuration:**
+- Reads: `packages.yml` or `dependencies.yml` in project root
+- Installs to: `dbt_packages/` directory
+- Lock file: `packages.lock.yml` (or skipped with `--no-lock`)
+
+**Must Run Before:**
+- `dbt parse` (if using external packages)
+- `dbt compile`, `dbt run` (if packages define macros/sources)
 
 **Artifacts Produced:**
 - `dbt_packages/` directory with installed packages
-- `packages.lock.yml` — Locked versions
+- `packages.lock.yml` — Locked versions (unless `--no-lock` used)
 
 **Exit Codes:**
 - `0` — Installation successful
-- `1` — Installation failed (missing packages, version conflicts)
+- `1` — Installation failed (missing packages, version conflicts, network error)
 
 ---
 
@@ -355,16 +364,35 @@ Execute a macro without a model context.
 
 **Key Flags:**
 - `--macro MACRO_NAME` — Macro to execute (required)
-- `--args '{"key": "value"}'` — Pass arguments to macro
+- `--args '{"key": "value"}'` or `--args 'key: value'` — Pass arguments to macro (JSON or YAML inline)
 
-**Example:**
-```bash
-dbt run-operation grant_permissions --args '{"role": "analyst"}'
-```
+**Arguments:**
+- Arguments are passed as a dict to the macro
+- JSON format: `--args '{"role": "analyst", "count": 5}'`
+- YAML format: `--args 'role: analyst'` (simpler for single args)
+
+**Artifacts Produced:**
+- Console output from macro
+- NO `run_results.json` (unlike `dbt run`, `dbt test`, etc.)
 
 **Exit Codes:**
 - `0` — Macro executed successfully
 - `1` — Macro error or missing macro
+- `2` — Unhandled error (connection, syntax, etc.)
+
+**Common Use Cases:**
+```bash
+# Grant permissions
+dbt run-operation grant_permissions --args '{"role": "analyst"}'
+
+# Refresh snapshots
+dbt run-operation refresh_snapshots --args '{"schema": "stg"}'
+
+# Custom data quality checks
+dbt run-operation run_checks --args 'table: my_model'
+```
+
+**Note:** Execution does NOT generate `run_results.json`. Capture output for CI/CD logging.
 
 ---
 
