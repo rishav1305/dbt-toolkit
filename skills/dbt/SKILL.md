@@ -34,6 +34,8 @@ Available commands:
   docs       Generate and serve documentation
   artifacts  Parse and compare run outputs
   seed       Seed loading, SCD snapshots
+  deps       Install and manage packages
+  macro      Execute dbt macros (grants, utilities)
 ```
 
 ## Routing Table
@@ -50,6 +52,8 @@ Available commands:
 | `docs`, `document`, `catalog` | `dbt-toolkit:dbt-docs` |
 | `artifacts`, `results`, `manifest` | `dbt-toolkit:dbt-artifacts` |
 | `seed`, `snapshot` | `dbt-toolkit:dbt-seed-snapshot` |
+| `deps`, `packages`, `install` | `dbt-toolkit:dbt-deps` |
+| `run-operation`, `macro`, `grant` | `dbt-toolkit:dbt-run-operation` |
 | `brainstorm`, `plan change` | `dbt-toolkit:dbt-brainstorming` |
 | `execute plan` | `dbt-toolkit:dbt-executing-plans` |
 | `review` | `dbt-toolkit:dbt-code-review` |
