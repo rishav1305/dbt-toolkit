@@ -52,7 +52,7 @@ def run_audit(
             AuditResult(
                 severity="info",
                 category="docs",
-                message=f"Model has no description",
+                message="Model has no description",
                 model_id=model_id,
             )
         )
@@ -68,7 +68,7 @@ def run_audit(
                 AuditResult(
                     severity="warning",
                     category="materialization",
-                    message=f"Incremental model missing unique_key — risk of duplicates",
+                    message="Incremental model missing unique_key — risk of duplicates",
                     model_id=model_id,
                 )
             )
@@ -81,7 +81,7 @@ def run_audit(
                         AuditResult(
                             severity="info",
                             category="redshift",
-                            message=f"No sort key configured",
+                            message="No sort key configured",
                             model_id=model_id,
                         )
                     )
@@ -90,7 +90,7 @@ def run_audit(
                         AuditResult(
                             severity="info",
                             category="redshift",
-                            message=f"No dist key configured",
+                            message="No dist key configured",
                             model_id=model_id,
                         )
                     )
@@ -102,7 +102,7 @@ def run_audit(
                 AuditResult(
                     severity="info",
                     category="tags",
-                    message=f"Model has no tags",
+                    message="Model has no tags",
                     model_id=model_id,
                 )
             )

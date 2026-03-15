@@ -14,7 +14,9 @@ def _load_manifest(manifest_path: Path) -> Dict[str, Any]:
 
 def _node_info(manifest: Dict, unique_id: str) -> Dict[str, Any]:
     """Extract node metadata."""
-    node = manifest.get("nodes", {}).get(unique_id) or manifest.get("sources", {}).get(unique_id)
+    node = manifest.get("nodes", {}).get(unique_id) or manifest.get("sources", {}).get(
+        unique_id
+    )
     if not node:
         return {"unique_id": unique_id}
     return {

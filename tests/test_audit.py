@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 
-from scripts.audit import run_audit, AuditResult
+from scripts.audit import run_audit
 
 
 def _write_manifest(tmp_path: Path, nodes: dict, sources: dict = None) -> Path:
@@ -50,7 +50,9 @@ def test_audit_flags_missing_sort_dist(tmp_path):
     manifest_path = _write_manifest(tmp_path, nodes)
     results = run_audit(manifest_path, check_sort_dist=True)
     infos = [r for r in results if r.severity == "info"]
-    assert any("sort" in r.message.lower() or "dist" in r.message.lower() for r in infos)
+    assert any(
+        "sort" in r.message.lower() or "dist" in r.message.lower() for r in infos
+    )
 
 
 def test_audit_flags_untagged_models(tmp_path):

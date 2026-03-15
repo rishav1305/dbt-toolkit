@@ -47,11 +47,13 @@ def diff_manifests(
 
     if resource_types:
         old_resources = {
-            k: v for k, v in old_resources.items()
+            k: v
+            for k, v in old_resources.items()
             if v.get("resource_type") in resource_types
         }
         new_resources = {
-            k: v for k, v in new_resources.items()
+            k: v
+            for k, v in new_resources.items()
             if v.get("resource_type") in resource_types
         }
 

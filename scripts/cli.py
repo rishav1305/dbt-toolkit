@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
 
@@ -41,7 +40,9 @@ def audit(ctx, manifest, check_sort_dist, min_coverage):
         click.echo("Error: manifest.json not found. Run 'dbt parse' first.", err=True)
         sys.exit(1)
 
-    results = run_audit(manifest_path, check_sort_dist=check_sort_dist, min_test_coverage=min_coverage)
+    results = run_audit(
+        manifest_path, check_sort_dist=check_sort_dist, min_test_coverage=min_coverage
+    )
 
     table = Table(title="Audit Results")
     table.add_column("Severity", style="bold")
@@ -49,14 +50,18 @@ def audit(ctx, manifest, check_sort_dist, min_coverage):
     table.add_column("Model")
     table.add_column("Message")
 
-    for r in sorted(results, key=lambda x: {"error": 0, "warning": 1, "info": 2}[x.severity]):
+    for r in sorted(
+        results, key=lambda x: {"error": 0, "warning": 1, "info": 2}[x.severity]
+    ):
         style = {"error": "red", "warning": "yellow", "info": "dim"}[r.severity]
         table.add_row(r.severity, r.category, r.model_id or "-", r.message, style=style)
 
     console.print(table)
-    console.print(f"\n{len(results)} findings ({sum(1 for r in results if r.severity == 'error')} errors, "
-                  f"{sum(1 for r in results if r.severity == 'warning')} warnings, "
-                  f"{sum(1 for r in results if r.severity == 'info')} info)")
+    console.print(
+        f"\n{len(results)} findings ({sum(1 for r in results if r.severity == 'error')} errors, "
+        f"{sum(1 for r in results if r.severity == 'warning')} warnings, "
+        f"{sum(1 for r in results if r.severity == 'info')} info)"
+    )
 
 
 @cli.command()
@@ -74,26 +79,38 @@ def coverage(ctx, manifest):
     test_cov = compute_test_coverage(manifest_path)
     doc_cov = compute_doc_coverage(manifest_path)
 
-    console.print(f"\n[bold]Test Coverage:[/bold] {test_cov['coverage']:.0%} "
-                  f"({test_cov['tested_models']}/{test_cov['total_models']} models)")
+    console.print(
+        f"\n[bold]Test Coverage:[/bold] {test_cov['coverage']:.0%} "
+        f"({test_cov['tested_models']}/{test_cov['total_models']} models)"
+    )
     if test_cov["untested_models"]:
         console.print(f"  Untested: {', '.join(test_cov['untested_models'][:10])}")
 
-    console.print(f"\n[bold]Doc Coverage:[/bold] {doc_cov['documented_models']}/{doc_cov['total_models']} models")
+    console.print(
+        f"\n[bold]Doc Coverage:[/bold] {doc_cov['documented_models']}/{doc_cov['total_models']} models"
+    )
     if doc_cov["undocumented_models"]:
-        console.print(f"  Undocumented: {', '.join(doc_cov['undocumented_models'][:10])}")
+        console.print(
+            f"  Undocumented: {', '.join(doc_cov['undocumented_models'][:10])}"
+        )
 
 
 @cli.command()
-@click.option("--sources-json", type=click.Path(exists=True), help="Path to sources.json")
+@click.option(
+    "--sources-json", type=click.Path(exists=True), help="Path to sources.json"
+)
 @click.pass_context
 def freshness(ctx, sources_json):
     """Show source freshness results."""
     from scripts.artifacts import parse_sources_freshness
 
-    sources_path = Path(sources_json) if sources_json else _find_artifact(ctx, "sources.json")
+    sources_path = (
+        Path(sources_json) if sources_json else _find_artifact(ctx, "sources.json")
+    )
     if not sources_path:
-        click.echo("Error: sources.json not found. Run 'dbt source freshness' first.", err=True)
+        click.echo(
+            "Error: sources.json not found. Run 'dbt source freshness' first.", err=True
+        )
         sys.exit(1)
 
     parsed = parse_sources_freshness(sources_path)
@@ -115,8 +132,10 @@ def freshness(ctx, sources_json):
         )
 
     console.print(table)
-    console.print(f"\nTotal: {parsed['total']} sources — "
-                  f"{parsed['pass']} pass, {parsed['warn']} warn, {parsed['error']} error")
+    console.print(
+        f"\nTotal: {parsed['total']} sources — "
+        f"{parsed['pass']} pass, {parsed['warn']} warn, {parsed['error']} error"
+    )
 
 
 def _find_manifest(ctx) -> Path | None:

@@ -1,6 +1,6 @@
 """Tests for error pattern matching."""
 
-from scripts.error_patterns import match_error, ErrorMatch
+from scripts.error_patterns import match_error
 
 
 def test_match_relation_not_found():

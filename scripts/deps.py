@@ -1,4 +1,5 @@
 """Dependency checker for dbt-toolkit."""
+
 import importlib
 import subprocess
 import sys
@@ -25,7 +26,9 @@ def _pip_install(package: str) -> bool:
     try:
         result = subprocess.run(
             [sys.executable, "-m", "pip", "install", package],
-            capture_output=True, text=True, timeout=120,
+            capture_output=True,
+            text=True,
+            timeout=120,
         )
     except subprocess.TimeoutExpired:
         log.warning("Timed out installing %s", package)
@@ -91,7 +94,10 @@ def ensure_dbt_cli() -> bool:
     dbt = _find_dbt_binary()
     try:
         result = subprocess.run(
-            [dbt, "--version"], capture_output=True, text=True, timeout=30,
+            [dbt, "--version"],
+            capture_output=True,
+            text=True,
+            timeout=30,
         )
         if result.returncode == 0:
             return True
@@ -110,9 +116,15 @@ def check_all(include_optional: bool = False) -> dict:
 
     dbt = _find_dbt_binary()
     try:
-        dbt_ok = subprocess.run(
-            [dbt, "--version"], capture_output=True, text=True, timeout=10,
-        ).returncode == 0
+        dbt_ok = (
+            subprocess.run(
+                [dbt, "--version"],
+                capture_output=True,
+                text=True,
+                timeout=10,
+            ).returncode
+            == 0
+        )
     except (FileNotFoundError, subprocess.TimeoutExpired):
         dbt_ok = False
     status["tools"]["dbt"] = dbt_ok

@@ -2,11 +2,12 @@
 
 import logging
 import re
-from typing import Optional
 
 
 _SECRET_PATTERNS = [
-    re.compile(r"(password|secret|token|api_key|apikey|auth)\s*[=:]\s*\S+", re.IGNORECASE),
+    re.compile(
+        r"(password|secret|token|api_key|apikey|auth)\s*[=:]\s*\S+", re.IGNORECASE
+    ),
     re.compile(r"Bearer\s+\S+", re.IGNORECASE),
 ]
 
@@ -18,9 +19,7 @@ class ToolkitLogger:
         self._logger = logging.getLogger(f"dbt-toolkit.{name}")
         if not self._logger.handlers:
             handler = logging.StreamHandler()
-            handler.setFormatter(
-                logging.Formatter("[dbt-toolkit] %(message)s")
-            )
+            handler.setFormatter(logging.Formatter("[dbt-toolkit] %(message)s"))
             self._logger.addHandler(handler)
         self._logger.setLevel(level)
 

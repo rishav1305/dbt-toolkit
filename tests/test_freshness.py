@@ -63,9 +63,18 @@ def test_get_freshness_trend(tmp_path):
     history_path = tmp_path / "freshness_history.json"
     entries = {
         "entries": [
-            {"timestamp": "2026-03-12T12:00:00Z", "results": [{"unique_id": "source.proj.src.table_a", "status": "pass"}]},
-            {"timestamp": "2026-03-13T12:00:00Z", "results": [{"unique_id": "source.proj.src.table_a", "status": "warn"}]},
-            {"timestamp": "2026-03-14T12:00:00Z", "results": [{"unique_id": "source.proj.src.table_a", "status": "warn"}]},
+            {
+                "timestamp": "2026-03-12T12:00:00Z",
+                "results": [{"unique_id": "source.proj.src.table_a", "status": "pass"}],
+            },
+            {
+                "timestamp": "2026-03-13T12:00:00Z",
+                "results": [{"unique_id": "source.proj.src.table_a", "status": "warn"}],
+            },
+            {
+                "timestamp": "2026-03-14T12:00:00Z",
+                "results": [{"unique_id": "source.proj.src.table_a", "status": "warn"}],
+            },
         ]
     }
     history_path.write_text(json.dumps(entries))

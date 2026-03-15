@@ -19,7 +19,11 @@ def test_session_hook_detects_dbt_project(tmp_path):
         capture_output=True,
         text=True,
         cwd=str(tmp_path),
-        env={"PWD": str(tmp_path), "PATH": "/usr/bin:/bin:/usr/local/bin", "HOME": str(Path.home())},
+        env={
+            "PWD": str(tmp_path),
+            "PATH": "/usr/bin:/bin:/usr/local/bin",
+            "HOME": str(Path.home()),
+        },
     )
     assert "DBT_PROJECT_FOUND" in result.stdout or result.returncode == 0
 

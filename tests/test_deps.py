@@ -1,5 +1,6 @@
 """Tests for dependency checker."""
-from scripts.deps import _is_importable, _pip_name, check_all, CORE_DEPS
+
+from scripts.deps import _is_importable, _pip_name, check_all
 
 
 def test_is_importable_stdlib():

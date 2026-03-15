@@ -57,7 +57,10 @@ def test_doc_coverage(tmp_path):
         "model.proj.a": {
             "resource_type": "model",
             "description": "A documented model",
-            "columns": {"col1": {"description": "has desc"}, "col2": {"description": ""}},
+            "columns": {
+                "col1": {"description": "has desc"},
+                "col2": {"description": ""},
+            },
         },
         "model.proj.b": {
             "resource_type": "model",

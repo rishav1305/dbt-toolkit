@@ -1,4 +1,5 @@
 """HTTP retry wrapper with exponential backoff and jitter."""
+
 import os
 import random
 import time
@@ -16,9 +17,7 @@ _RETRYABLE_STATUS = {500, 502, 503, 504, 429}
 def _get_verify() -> Union[str, bool]:
     """Resolve TLS verification: honor SSL_CERT_FILE and REQUESTS_CA_BUNDLE."""
     return (
-        os.environ.get("SSL_CERT_FILE")
-        or os.environ.get("REQUESTS_CA_BUNDLE")
-        or True
+        os.environ.get("SSL_CERT_FILE") or os.environ.get("REQUESTS_CA_BUNDLE") or True
     )
 
 
@@ -51,7 +50,12 @@ def resilient_request(
                 wait = backoff_base * (2 ** (attempt - 1)) * (0.5 + random.random())
                 log.warning(
                     "%s %s failed (attempt %d/%d): %s. Retrying in %.1fs...",
-                    method, url, attempt, retries, type(e).__name__, wait,
+                    method,
+                    url,
+                    attempt,
+                    retries,
+                    type(e).__name__,
+                    wait,
                 )
                 time.sleep(wait)
             else:
@@ -67,13 +71,21 @@ def resilient_request(
                 wait = base_wait + jitter
                 log.warning(
                     "%s %s returned %d (attempt %d/%d). Retrying in %.1fs...",
-                    method, url, e.response.status_code, attempt, retries, wait,
+                    method,
+                    url,
+                    e.response.status_code,
+                    attempt,
+                    retries,
+                    wait,
                 )
                 time.sleep(wait)
             else:
                 log.error(
                     "%s %s failed after %d attempts: HTTP %d",
-                    method, url, retries, e.response.status_code,
+                    method,
+                    url,
+                    retries,
+                    e.response.status_code,
                 )
                 raise
 

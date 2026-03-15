@@ -1,4 +1,5 @@
 """Anonymous opt-in telemetry for dbt-toolkit."""
+
 import contextlib
 import hashlib
 import json
@@ -62,6 +63,7 @@ def _create_posthog_client():
         return None
     try:
         from posthog import Posthog
+
         return Posthog(project_api_key=_POSTHOG_API_KEY, host=_POSTHOG_HOST)
     except ImportError:
         log.debug("posthog package not installed — telemetry disabled")
@@ -73,14 +75,24 @@ def _create_posthog_client():
 
 class _NullTelemetry:
     """No-op telemetry returned when not initialized."""
+
     anonymous_id = ""
 
-    def track(self, event, properties=None): pass
-    def track_error(self, command, error_type, message): pass
-    def identify(self): pass
+    def track(self, event, properties=None):
+        pass
+
+    def track_error(self, command, error_type, message):
+        pass
+
+    def identify(self):
+        pass
+
     @contextlib.contextmanager
-    def timed(self, command, **extra): yield
-    def shutdown(self): pass
+    def timed(self, command, **extra):
+        yield
+
+    def shutdown(self):
+        pass
 
 
 class Telemetry:
@@ -123,9 +135,7 @@ class Telemetry:
                 config["telemetry"] = {}
             config["telemetry"]["anonymous_id"] = anon_id
 
-            fd, tmp = tempfile.mkstemp(
-                dir=self._config_path.parent, suffix=".tmp"
-            )
+            fd, tmp = tempfile.mkstemp(dir=self._config_path.parent, suffix=".tmp")
             try:
                 with os.fdopen(fd, "w") as f:
                     yaml.safe_dump(config, f, default_flow_style=False)
@@ -168,11 +178,14 @@ class Telemetry:
 
     def track_error(self, command: str, error_type: str, message: str) -> None:
         """Track an error event (message is sanitized)."""
-        self.track("error", {
-            "command": command,
-            "error_type": error_type,
-            "error_message": self._sanitize(message, max_length=200),
-        })
+        self.track(
+            "error",
+            {
+                "command": command,
+                "error_type": error_type,
+                "error_message": self._sanitize(message, max_length=200),
+            },
+        )
 
     @staticmethod
     def _sanitize(text: str, max_length: int = 500) -> str:

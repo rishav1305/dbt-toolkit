@@ -38,7 +38,9 @@ def test_with_downstream():
 
 
 def test_with_both():
-    result = build_select_string(models=["model_a"], include_upstream=True, include_downstream=True)
+    result = build_select_string(
+        models=["model_a"], include_upstream=True, include_downstream=True
+    )
     assert result == "+model_a+"
 
 
@@ -56,12 +58,16 @@ def test_full_refresh_model():
 
 
 def test_upstream_depth():
-    result = build_select_string(models=["model_a"], include_upstream=True, upstream_depth=2)
+    result = build_select_string(
+        models=["model_a"], include_upstream=True, upstream_depth=2
+    )
     assert result == "2+model_a"
 
 
 def test_downstream_depth():
-    result = build_select_string(models=["model_a"], include_downstream=True, downstream_depth=3)
+    result = build_select_string(
+        models=["model_a"], include_downstream=True, downstream_depth=3
+    )
     assert result == "model_a+3"
 
 

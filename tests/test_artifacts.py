@@ -52,7 +52,12 @@ def test_parse_run_results(tmp_path):
         "results": [
             {"unique_id": "model.proj.a", "status": "success", "execution_time": 10.1},
             {"unique_id": "model.proj.b", "status": "success", "execution_time": 30.5},
-            {"unique_id": "model.proj.c", "status": "error", "execution_time": 4.6, "message": "SQL error"},
+            {
+                "unique_id": "model.proj.c",
+                "status": "error",
+                "execution_time": 4.6,
+                "message": "SQL error",
+            },
         ],
     }
     _write_json(tmp_path / "target" / "run_results.json", results)

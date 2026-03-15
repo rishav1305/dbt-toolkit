@@ -1,9 +1,14 @@
 """Tests for telemetry module."""
-import os
+
 import yaml
 from pathlib import Path
 
-from scripts.telemetry import Telemetry, _NullTelemetry, get_telemetry, _system_properties
+from scripts.telemetry import (
+    Telemetry,
+    _NullTelemetry,
+    get_telemetry,
+    _system_properties,
+)
 
 
 def _write_config(path: Path, enabled: bool = False, anon_id: str = "") -> Path:
@@ -18,6 +23,7 @@ def _write_config(path: Path, enabled: bool = False, anon_id: str = "") -> Path:
 def test_null_telemetry_returned_without_config():
     """get_telemetry() without config returns NullTelemetry."""
     import scripts.telemetry as mod
+
     mod._instance = None
     t = get_telemetry()
     assert isinstance(t, _NullTelemetry)
@@ -55,7 +61,9 @@ def test_anonymous_id_persisted(tmp_path):
 
 def test_anonymous_id_reused(tmp_path):
     """Existing anonymous ID is reused, not regenerated."""
-    cfg = _write_config(tmp_path / "config.yaml", enabled=True, anon_id="existing1234abcd")
+    cfg = _write_config(
+        tmp_path / "config.yaml", enabled=True, anon_id="existing1234abcd"
+    )
     t = Telemetry(cfg)
     assert t.anonymous_id == "existing1234abcd"
 

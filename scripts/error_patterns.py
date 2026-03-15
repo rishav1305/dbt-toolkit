@@ -75,7 +75,7 @@ _PATTERNS = [
     ),
     # Runtime SQL errors
     (
-        r'relation.*does not exist|table.*not found|Unknown table',
+        r"relation.*does not exist|table.*not found|Unknown table",
         "runtime_sql",
         "Referenced table or relation does not exist",
         [
@@ -178,7 +178,7 @@ _PATTERNS = [
     ),
     # Redshift-specific
     (
-        r'Relation.*already exists.*spectrum|tmp.*already exists',
+        r"Relation.*already exists.*spectrum|tmp.*already exists",
         "redshift",
         "Spectrum CTAS collision — duplicate internal staging relation",
         [

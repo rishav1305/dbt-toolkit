@@ -1,6 +1,4 @@
 # tests/test_config.py
-import os
-import tempfile
 from pathlib import Path
 
 import yaml
@@ -42,7 +40,10 @@ def test_discover_walks_up(tmp_path):
     config_data = {
         "version": 1,
         "project": {"name": "parent_project", "dir": "."},
-        "execution": {"method": "ssh", "ssh": {"host": "example.com", "user": "ubuntu"}},
+        "execution": {
+            "method": "ssh",
+            "ssh": {"host": "example.com", "user": "ubuntu"},
+        },
         "profile": {"name": "prod", "target": "redshift"},
         "defaults": {"threads": 8},
     }

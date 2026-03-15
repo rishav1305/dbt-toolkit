@@ -6,7 +6,6 @@ import os
 import shlex
 import subprocess
 from dataclasses import dataclass
-from pathlib import Path
 from typing import List, Optional
 
 from scripts.config import ToolkitConfig
@@ -27,7 +26,9 @@ class RunResult:
         return self.returncode == 0
 
     @classmethod
-    def from_subprocess(cls, returncode: int, stdout: str, stderr: str, command: str) -> "RunResult":
+    def from_subprocess(
+        cls, returncode: int, stdout: str, stderr: str, command: str
+    ) -> "RunResult":
         return cls(returncode=returncode, stdout=stdout, stderr=stderr, command=command)
 
 
@@ -102,17 +103,28 @@ class DbtRunner:
         docker_cmd.extend(dbt_args)
         return docker_cmd
 
-    def execute(self, dbt_command: str, timeout: Optional[int] = None, **kwargs) -> RunResult:
+    def execute(
+        self, dbt_command: str, timeout: Optional[int] = None, **kwargs
+    ) -> RunResult:
         cmd = self.build_command(dbt_command, **kwargs)
         cmd_str = " ".join(cmd)
         logger.info(f"Executing: {cmd_str}")
         try:
             proc = subprocess.run(
-                cmd, capture_output=True, text=True, timeout=timeout,
-                cwd=str(self.config.project_root) if self.config.execution_method == "local" else None,
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                cwd=str(self.config.project_root)
+                if self.config.execution_method == "local"
+                else None,
             )
-            return RunResult.from_subprocess(proc.returncode, proc.stdout, proc.stderr, cmd_str)
+            return RunResult.from_subprocess(
+                proc.returncode, proc.stdout, proc.stderr, cmd_str
+            )
         except subprocess.TimeoutExpired:
-            return RunResult.from_subprocess(-1, "", f"Command timed out after {timeout}s", cmd_str)
+            return RunResult.from_subprocess(
+                -1, "", f"Command timed out after {timeout}s", cmd_str
+            )
         except FileNotFoundError as e:
             return RunResult.from_subprocess(-1, "", f"Command not found: {e}", cmd_str)

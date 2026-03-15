@@ -1,4 +1,5 @@
 """Tests for HTTP retry module."""
+
 import httpx
 import pytest
 
@@ -27,4 +28,6 @@ def test_no_retry_on_404(httpx_mock):
     """404 is not retried."""
     httpx_mock.add_response(url="https://example.com/api", status_code=404)
     with pytest.raises(httpx.HTTPStatusError):
-        resilient_request("GET", "https://example.com/api", retries=3, backoff_base=0.01)
+        resilient_request(
+            "GET", "https://example.com/api", retries=3, backoff_base=0.01
+        )

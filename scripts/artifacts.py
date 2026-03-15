@@ -50,7 +50,9 @@ def parse_run_results(results_path: Path) -> Dict[str, Any]:
         if r.get("status") in ("error", "fail")
     ]
 
-    slowest = max(results, key=lambda r: r.get("execution_time", 0)) if results else None
+    slowest = (
+        max(results, key=lambda r: r.get("execution_time", 0)) if results else None
+    )
 
     return {
         "total": len(results),
