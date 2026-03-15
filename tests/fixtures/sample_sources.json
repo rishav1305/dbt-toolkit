@@ -1,0 +1,17 @@
+{
+  "metadata": {},
+  "results": [
+    {
+      "unique_id": "source.my_project.raw.orders",
+      "status": "pass",
+      "max_loaded_at": "2026-03-14T10:00:00Z",
+      "max_loaded_at_time_ago_in_s": 3600
+    },
+    {
+      "unique_id": "source.my_project.raw.events",
+      "status": "warn",
+      "max_loaded_at": "2026-03-10T10:00:00Z",
+      "max_loaded_at_time_ago_in_s": 345600
+    }
+  ]
+}

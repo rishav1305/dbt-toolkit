@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "dbt_version": "1.8.0",
+    "adapter_type": "redshift",
+    "generated_at": "2026-03-14T12:00:00Z"
+  },
+  "nodes": {
+    "model.my_project.stg_orders": {
+      "resource_type": "model",
+      "unique_id": "model.my_project.stg_orders",
+      "name": "stg_orders",
+      "schema": "staging",
+      "config": {"materialized": "view"},
+      "depends_on": {"nodes": ["source.my_project.raw.orders"]}
+    },
+    "model.my_project.fct_revenue": {
+      "resource_type": "model",
+      "unique_id": "model.my_project.fct_revenue",
+      "name": "fct_revenue",
+      "schema": "marts",
+      "config": {"materialized": "incremental"},
+      "depends_on": {"nodes": ["model.my_project.stg_orders"]}
+    },
+    "test.my_project.not_null_stg_orders_id": {
+      "resource_type": "test",
+      "unique_id": "test.my_project.not_null_stg_orders_id",
+      "name": "not_null_stg_orders_id",
+      "depends_on": {"nodes": ["model.my_project.stg_orders"]}
+    }
+  },
+  "sources": {
+    "source.my_project.raw.orders": {
+      "resource_type": "source",
+      "unique_id": "source.my_project.raw.orders",
+      "name": "orders",
+      "source_name": "raw",
+      "schema": "raw_data"
+    }
+  },
+  "parent_map": {
+    "model.my_project.stg_orders": ["source.my_project.raw.orders"],
+    "model.my_project.fct_revenue": ["model.my_project.stg_orders"],
+    "test.my_project.not_null_stg_orders_id": ["model.my_project.stg_orders"]
+  },
+  "child_map": {
+    "source.my_project.raw.orders": ["model.my_project.stg_orders"],
+    "model.my_project.stg_orders": ["model.my_project.fct_revenue", "test.my_project.not_null_stg_orders_id"],
+    "model.my_project.fct_revenue": []
+  }
+}

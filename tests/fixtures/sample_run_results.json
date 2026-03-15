@@ -1,0 +1,24 @@
+{
+  "metadata": {"dbt_version": "1.8.0"},
+  "elapsed_time": 45.2,
+  "results": [
+    {
+      "unique_id": "model.my_project.stg_orders",
+      "status": "success",
+      "execution_time": 10.1,
+      "message": "OK"
+    },
+    {
+      "unique_id": "model.my_project.fct_revenue",
+      "status": "error",
+      "execution_time": 4.6,
+      "message": "Relation \"staging\".\"stg_orders\" does not exist"
+    },
+    {
+      "unique_id": "test.my_project.not_null_stg_orders_id",
+      "status": "warn",
+      "execution_time": 2.3,
+      "message": "Got 3 results, configured to warn if != 0"
+    }
+  ]
+}

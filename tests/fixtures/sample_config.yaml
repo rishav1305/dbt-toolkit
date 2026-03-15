@@ -1,0 +1,32 @@
+version: 1
+
+project:
+  name: "my_project"
+  dir: "."
+
+execution:
+  method: "local"
+
+profile:
+  name: "default"
+  target: "dev"
+
+defaults:
+  threads: 4
+  full_refresh: false
+  fail_fast: false
+  log_format: "json"
+
+freshness:
+  enabled: true
+  warn_after_hours: 24
+  tracked_sources: []
+
+audit:
+  check_sort_dist: true
+  check_undocumented: true
+  check_test_coverage: true
+  min_test_coverage: 0.8
+
+tags:
+  favorites: ["daily", "revenue"]
