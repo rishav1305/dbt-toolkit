@@ -22,7 +22,8 @@ dbt-toolkit is a 16-skill Claude Code plugin for dbt project management. It work
 - Missing `telemetry.py`, `deps.py`, `http.py` scripts
 
 ### Target State
-- Structure mirrors preset-toolkit exactly
+- Structure mirrors preset-toolkit's plugin packaging (`.claude-plugin/`, hooks, skills, scripts, references, agents, templates, tests)
+- Goes beyond preset-toolkit by adding CI/CD scaffolding (`.github/`, `CONTRIBUTING.md`, `CHANGELOG.md`) — these are intentional additions for marketplace polish, not present in preset-toolkit
 - Marketplace-ready with `marketplace.json`
 - Professional README with badges, ASCII diagrams, feature tables
 - Official BUSL-1.1 license template
@@ -151,17 +152,20 @@ Existing tests unchanged — fixtures are additive for future test migration.
 ### 7. Minor Modifications
 
 **`pyproject.toml`:**
-- Add `[tool.setuptools.packages.find]` with `include = ["scripts*"]`
+- **Replace** existing `[tool.setuptools]` section (`py-modules = ["scripts"]`) with `[tool.setuptools.packages.find]` and `include = ["scripts*"]` — these are mutually exclusive directives
 - Add `posthog>=3.0` and `httpx>=0.24` to dependencies
 - Add `ruff>=0.3` to dev dependencies
+- Keep `requires-python = ">=3.9"` (intentionally not aligned to preset-toolkit's 3.8 since Python 3.8 is EOL)
 
-**`templates/gitignore.template`:**
+**`templates/gitignore.template`** (scaffold for end-user dbt projects, NOT the repo's own `.gitignore`):
 - Standard Python ignores (__pycache__, .venv, *.egg-info, dist, build)
 - dbt-toolkit specifics (.dbt-toolkit/.secrets/, .dbt-toolkit/cache/)
 - IDE files (.vscode, .idea)
 
-**`.gitignore`:**
-- Add `.github/` workflow caches if any
+**`.gitignore`** (the repo's own gitignore — align with preset-toolkit's comprehensive version):
+- Add `.env`, `.DS_Store`, `.idea/`, `.vscode/`
+- Add `*.pem`, `*.key` (secret files)
+- Add `screenshots/` (if screenshot feature is used during development)
 
 ---
 
@@ -184,7 +188,7 @@ Existing tests unchanged — fixtures are additive for future test migration.
 |---|---|
 | `plugin.json` (root) | Duplicate — `.claude-plugin/plugin.json` is canonical |
 
-### Add (19 files)
+### Add (16 files)
 | File | Purpose |
 |---|---|
 | `.claude-plugin/marketplace.json` | Marketplace registry |
@@ -195,15 +199,16 @@ Existing tests unchanged — fixtures are additive for future test migration.
 | `.github/workflows/lint.yml` | CI: ruff linting |
 | `CONTRIBUTING.md` | Contributor guide |
 | `CHANGELOG.md` | Version history |
-| `templates/gitignore.template` | .gitignore scaffold for user projects |
+| `templates/gitignore.template` | .gitignore scaffold for user dbt projects |
 | `docs/superpowers/plans/.gitkeep` | Directory placeholder |
-| `docs/superpowers/specs/` | This spec lives here |
 | `tests/fixtures/sample_manifest.json` | Test fixture: manifest |
 | `tests/fixtures/sample_run_results.json` | Test fixture: run results |
 | `tests/fixtures/sample_config.yaml` | Test fixture: config |
 | `tests/fixtures/sample_sources.json` | Test fixture: sources |
 | `tests/fixtures/sample_dbt_project.yml` | Test fixture: dbt project |
 | `tests/fixtures/__init__.py` | Package marker |
+
+Note: `docs/superpowers/specs/` already exists (this spec is there).
 
 ### Rewrite (2 files)
 | File | Change |
@@ -214,8 +219,8 @@ Existing tests unchanged — fixtures are additive for future test migration.
 ### Modify (2 files)
 | File | Change |
 |---|---|
-| `pyproject.toml` | Add setuptools.packages.find, new deps, ruff |
-| `.gitignore` | Minor additions |
+| `pyproject.toml` | Replace py-modules with setuptools.packages.find, add new deps, ruff |
+| `.gitignore` | Add .env, .DS_Store, IDE dirs, secret file patterns, screenshots/ |
 
 ---
 
