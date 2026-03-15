@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+dist/
+build/
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# dbt-toolkit
+.dbt-toolkit/.secrets/
+.dbt-toolkit/cache/
+.dbt-toolkit/freshness_history.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Secrets
+.env
+*.pem
+*.key
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
