@@ -10,3 +10,10 @@ htmlcov/
 .dbt-toolkit/.secrets/
 .dbt-toolkit/cache/
 .dbt-toolkit/freshness_history.json
+.env
+.DS_Store
+.idea/
+.vscode/
+*.pem
+*.key
+screenshots/
