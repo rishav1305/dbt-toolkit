@@ -1,0 +1,15 @@
+{
+  "name": "dbt-toolkit",
+  "owner": {
+    "name": "Rishav Chatterjee",
+    "email": "rishav.chatterjee@weather.com"
+  },
+  "plugins": [
+    {
+      "name": "dbt-toolkit",
+      "source": "./",
+      "description": "Workflow-oriented dbt project management for Claude Code",
+      "version": "0.1.0"
+    }
+  ]
+}
