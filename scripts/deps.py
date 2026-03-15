@@ -45,7 +45,7 @@ def _is_importable(module_name: str) -> bool:
     try:
         importlib.import_module(module_name)
         return True
-    except ImportError:
+    except Exception:
         return False
 
 
