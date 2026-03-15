@@ -7,8 +7,6 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Marketplace packaging (marketplace.json)
 - Telemetry module (anonymous, opt-in via PostHog)
-- Dependency checker module
-- HTTP retry module with exponential backoff
 - GitHub Actions CI (tests + linting)
 - CONTRIBUTING.md
 - Test fixtures (sample manifest, run_results, config, sources, dbt_project)

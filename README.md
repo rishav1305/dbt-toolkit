@@ -251,7 +251,7 @@ dbt-toolkit/
 │   └── dbt-code-review/      SQL quality and best practices
 ├── agents/                   Lineage + test-failure analysis agents
 ├── references/               dbt knowledge base (7 docs)
-├── scripts/                  Python automation (15 modules)
+├── scripts/                  Python automation (13 modules)
 │   ├── config.py             Config discovery and typed access
 │   ├── runner.py             Execute dbt via local/SSH/Docker
 │   ├── artifacts.py          Parse manifest, run_results, sources
@@ -265,8 +265,6 @@ dbt-toolkit/
 │   ├── cli.py                Unified CLI entry point
 │   ├── logger.py             Structured logging + secret sanitization
 │   ├── telemetry.py          Anonymous opt-in telemetry
-│   ├── deps.py               Dependency checking and validation
-│   ├── http.py               HTTP retry with exponential backoff
 │   └── bootstrap.sh          Environment detection script
 ├── templates/                Project scaffolding files
 └── tests/                    Test suite (unit + integration)
@@ -280,7 +278,6 @@ dbt-toolkit/
 | `paramiko` | SSH execution |
 | `click` | CLI framework |
 | `rich` | Terminal formatting |
-| `httpx` | HTTP client with retry support |
 | `posthog` | Anonymous opt-in telemetry |
 
 ---
