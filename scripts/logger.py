@@ -28,11 +28,13 @@ class ToolkitLogger:
         result = text
         for pattern in _SECRET_PATTERNS:
             result = pattern.sub(
-                lambda m: m.group(0).split("=")[0] + "=***"
-                if "=" in m.group(0)
-                else m.group(0).split(":")[0] + ": ***"
-                if ":" in m.group(0)
-                else "***",
+                lambda m: (
+                    m.group(0).split("=")[0] + "=***"
+                    if "=" in m.group(0)
+                    else m.group(0).split(":")[0] + ": ***"
+                    if ":" in m.group(0)
+                    else "***"
+                ),
                 result,
             )
         return result
