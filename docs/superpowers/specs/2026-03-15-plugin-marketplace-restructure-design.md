@@ -177,7 +177,7 @@ Existing tests unchanged — fixtures are additive for future test migration.
 - All 7 references (references/*.md)
 - All existing templates (templates/ — only gitignore.template added)
 - Hooks (hooks/ directory untouched)
-- Existing 14 test modules (tests/test_*.py)
+- Existing 13 test modules (tests/test_*.py)
 
 ---
 
