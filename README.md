@@ -42,6 +42,25 @@ You say:                              dbt-toolkit does:
 
 ### The Execution Flow
 
+```mermaid
+graph LR
+    U["User: /dbt run"] --> R["Router Skill"]
+    R --> S["Smart Selector"]
+    S --> E{"Execution Method"}
+    E -->|local| L["Local CLI"]
+    E -->|ssh| SSH["SSH Runner"]
+    E -->|docker| D["Docker Runner"]
+    L & SSH & D --> P["Parse Results"]
+    P --> A["Artifact Analysis"]
+    A -->|failures| DX["Error Diagnosis"]
+    A -->|success| OK["Coverage Report"]
+    
+    style R fill:#6366f1,color:#fff
+    style S fill:#f59e0b,color:#000
+    style DX fill:#ef4444,color:#fff
+    style OK fill:#22c55e,color:#fff
+```
+
 ```
                     ┌─────────────────────────────────────────┐
                     │       /dbt-toolkit:dbt run               │
@@ -305,6 +324,26 @@ python -m pytest tests/ -v
 2. Follow the Conversation Principles (never ask technical questions)
 3. Add routing logic to `skills/dbt/SKILL.md`
 4. Reference relevant `references/*.md` docs
+
+---
+
+## Related Projects
+
+| Project | Relationship | Link |
+|---------|-------------|------|
+| **soul** | AI platform that hosts dbt-toolkit as a product server | [github.com/rishav1305/soul](https://github.com/rishav1305/soul) |
+| **preset-toolkit** | Sister plugin for Preset/Superset dashboards (same architecture) | [github.com/rishav1305/preset-toolkit](https://github.com/rishav1305/preset-toolkit) |
+| **soul-team** | Multi-agent runtime that uses dbt-toolkit for data workflows | [github.com/rishav1305/soul-team](https://github.com/rishav1305/soul-team) |
+| **soul-bench** | CARS benchmark — LLM evaluation framework | [github.com/rishav1305/soul-bench](https://github.com/rishav1305/soul-bench) |
+| **SoulGraph** | Multi-agent RAG framework (LangGraph + ChromaDB) | [github.com/rishav1305/soulgraph](https://github.com/rishav1305/soulgraph) |
+
+## Author
+
+**Rishav Chatterjee** — Senior AI Architect
+
+- Portfolio: [rishavchatterjee.com](https://rishavchatterjee.com)
+- GitHub: [github.com/rishav1305](https://github.com/rishav1305)
+- LinkedIn: [linkedin.com/in/rishavchatterjee](https://linkedin.com/in/rishavchatterjee)
 
 ---
 
